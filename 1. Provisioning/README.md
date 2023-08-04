@@ -74,3 +74,10 @@ resource "idcloudhost_floating_ip" "ipmonitoring" {
   assigned_to = idcloudhost_vm.monitoring.id
 }
 ```
+
+Sebagai lankah awal kita bisa menggunakan terrafrom init untuk menginisialisasi konfigurasi proyek Terraform :
+
+```
+terraform init
+```
+
