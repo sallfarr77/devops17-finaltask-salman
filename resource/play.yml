@@ -149,7 +149,12 @@
     - name: Pull Prometheus Docker image
       docker_image:
         name: bitnami/prometheus
-        source: pull
+        source: pul
+
+    - name: Copy prometheus config
+      copy:
+        src: ~/ansible-server/prometheus.yml
+        dest: /home/sallfarr/prometheus/prometheus.yml
 
     - name: Run Prometheus container
       docker_container:
