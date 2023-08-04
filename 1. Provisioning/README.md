@@ -188,6 +188,19 @@ alamat domain grafana
 
 ![image](/1.%20Provisioning/img/7.png)
 
+sedikit tambahan bentuk scrape config yang nantinya berguna untuk grafana
+
+```
+scrape_configs:
+  - job_name: node-dumbways
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+        - node-app.salman.studentdumbways.my.id
+        - node-gate.salman.studentdumbways.my.id
+        - node-monit.salman.studentdumbways.my.id
+```
+
 alamat domain jenkins
 
 ![image](/1.%20Provisioning/img/8.png)
