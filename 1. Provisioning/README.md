@@ -1,7 +1,7 @@
 # Provision servers using Terraform
 
 
-Saya akan membuat file `main.tf` yang nantinya akan membuat resource vm berbeda dengan menerapkan IaC menggunakan terraform.
+Sebagai lankgkah awal saya akan membuat file `main.tf`, yang nantinya akan membuat resource vm berbeda dengan menerapkan IaC menggunakan terraform.
 
 ```
 terraform {
