@@ -14,7 +14,7 @@ terraform {
 }
 
 provider "idcloudhost" {
-  auth_token = "mTWvAHka6YmhUncBxKZyCpeL40C7Kyc0"
+  auth_token = ""
 }
 
 resource "idcloudhost_vm" "appserver" {
@@ -25,9 +25,9 @@ resource "idcloudhost_vm" "appserver" {
   memory = 2048
   disks = 20
   username = "sallfarr"
-  initial_password = "Katasand1"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDMY1bm0RTQDwE8zNusvj/VlBP8oZm7TT2Cr43cKGr1q4+5mkyq1EJS3udM7YfwHg+bLfC6yZmyrh1tLMCmiNFpFDTtkcg/rcvtyc1RM0v5XF8Ldy09o+5TvyfZ3ROVl0uhfY35BucHLekjjZjjty+HVXtOgvuhJhSaASs7mMqAfVkkJ//ud57CuoiH+1SckQo/aj7gma7MnLxu0wwcLkqx0GH67XFz1aRsmLpuikhoPXWuTCDtgGnIfYcHNC4W6CPGHd+Ov9jPXnuZiiCC1uG0M/weT0wVK1Snrcs7Gq0Ekles34bXcbrHu8/jhVWx5773kMtkekIg6g6CU/S1fyVTGVSuW+rs5WLkrT/tcH8Aqb9C1kjC7e9S+w0y9ZO60wlWSWH9oAGkqEJxcP9Xt0lagkmIkhuXl12wwLCuWcSu09Jaww86p19LqhBa5rSmF1LWz5l9e7L5qXL/9ClX5SeNxXpmFy4UJdZAqVW6PNoL5LhCw2AwJWNfw6o9Y51N81M= sallf@windows_salman"
-  billing_account_id = "1200157626"
+  initial_password = ""
+  public_key = ""
+  billing_account_id = ""
 }
 
 resource "idcloudhost_vm" "gateway" {
@@ -38,9 +38,9 @@ resource "idcloudhost_vm" "gateway" {
   memory = 2048
   disks = 20
   username = "sallfarr"
-  initial_password = "Katasand1"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDMY1bm0RTQDwE8zNusvj/VlBP8oZm7TT2Cr43cKGr1q4+5mkyq1EJS3udM7YfwHg+bLfC6yZmyrh1tLMCmiNFpFDTtkcg/rcvtyc1RM0v5XF8Ldy09o+5TvyfZ3ROVl0uhfY35BucHLekjjZjjty+HVXtOgvuhJhSaASs7mMqAfVkkJ//ud57CuoiH+1SckQo/aj7gma7MnLxu0wwcLkqx0GH67XFz1aRsmLpuikhoPXWuTCDtgGnIfYcHNC4W6CPGHd+Ov9jPXnuZiiCC1uG0M/weT0wVK1Snrcs7Gq0Ekles34bXcbrHu8/jhVWx5773kMtkekIg6g6CU/S1fyVTGVSuW+rs5WLkrT/tcH8Aqb9C1kjC7e9S+w0y9ZO60wlWSWH9oAGkqEJxcP9Xt0lagkmIkhuXl12wwLCuWcSu09Jaww86p19LqhBa5rSmF1LWz5l9e7L5qXL/9ClX5SeNxXpmFy4UJdZAqVW6PNoL5LhCw2AwJWNfw6o9Y51N81M= sallf@windows_salman"
-  billing_account_id = "1200157626"
+  initial_password = ""
+  public_key = ""
+  billing_account_id = ""
 }
 
 resource "idcloudhost_vm" "monitoring" {
@@ -51,26 +51,26 @@ resource "idcloudhost_vm" "monitoring" {
   memory = 1024
   disks = 20
   username = "sallfarr"
-  initial_password = "Katasand1"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDMY1bm0RTQDwE8zNusvj/VlBP8oZm7TT2Cr43cKGr1q4+5mkyq1EJS3udM7YfwHg+bLfC6yZmyrh1tLMCmiNFpFDTtkcg/rcvtyc1RM0v5XF8Ldy09o+5TvyfZ3ROVl0uhfY35BucHLekjjZjjty+HVXtOgvuhJhSaASs7mMqAfVkkJ//ud57CuoiH+1SckQo/aj7gma7MnLxu0wwcLkqx0GH67XFz1aRsmLpuikhoPXWuTCDtgGnIfYcHNC4W6CPGHd+Ov9jPXnuZiiCC1uG0M/weT0wVK1Snrcs7Gq0Ekles34bXcbrHu8/jhVWx5773kMtkekIg6g6CU/S1fyVTGVSuW+rs5WLkrT/tcH8Aqb9C1kjC7e9S+w0y9ZO60wlWSWH9oAGkqEJxcP9Xt0lagkmIkhuXl12wwLCuWcSu09Jaww86p19LqhBa5rSmF1LWz5l9e7L5qXL/9ClX5SeNxXpmFy4UJdZAqVW6PNoL5LhCw2AwJWNfw6o9Y51N81M= sallf@windows_salman"
-  billing_account_id = "1200157626"
+  initial_password = ""
+  public_key = ""
+  billing_account_id = ""
 }
 
 resource "idcloudhost_floating_ip" "appserver" {
   name = "appserverIP"
-  billing_account_id = 1200157626
+  billing_account_id = 
   assigned_to = idcloudhost_vm.appserver.id
 }
 
 resource "idcloudhost_floating_ip" "ipgateway" {
   name = "gatewayIP"
-  billing_account_id = 1200157626
+  billing_account_id = 
   assigned_to = idcloudhost_vm.gateway.id
 }
 
 resource "idcloudhost_floating_ip" "ipmonitoring" {
   name = "monitoringIP"
-  billing_account_id = 1200157626
+  billing_account_id = 
   assigned_to = idcloudhost_vm.monitoring.id
 }
 ```
@@ -80,4 +80,70 @@ Sebagai lankah awal kita bisa menggunakan terrafrom init untuk menginisialisasi 
 ```
 terraform init
 ```
+![image](/1.%20Provisioning/img/1.png)
+
+Kita juga bisa menggunakan terraform plan yang digunakan untuk menganalisis dan menampilkan rencana perubahan infrastruktur yang akan dilakukan :
+
+```
+terraform plan
+```
+
+![image](/1.%20Provisioning/img/2.png)
+
+terraform apply adalah perintah dalam Terraform yang digunakan untuk menerapkan perubahan infrastruktur yang telah didefinisikan dalam konfigurasi Terraform :
+
+```
+terraform apply
+```
+![image](/1.%20Provisioning/img/3.png)
+
+![image](/1.%20Provisioning/img/4.png)
+
+
+# Server Configuration using Ansible
+
+Disini saya akan membuat ansible.cfg, ansible.cfg adalah file konfigurasi utama untuk Ansible, yang digunakan untuk mengonfigurasi berbagai aspek penggunaan Ansible. File ini digunakan untuk menentukan opsi dan preferensi yang akan digunakan oleh Ansible saat menjalankan perintah dan tugas.
+
+```
+[defaults]
+inventory = Inventory
+private_key_file = ~/.ssh/id_rsa
+host_key_checking = false
+interpreter_python = auto_silent
+```
+
+Dan Jangakn lupa pula membuat Inventory, Inventory Ansible adalah file atau grup file yang digunakan untuk menyimpan daftar host atau target yang akan dikelola oleh Ansible. File inventory ini berisi informasi tentang host seperti alamat IP, nama host, username SSH, grup host, dan variabel lainnya yang relevan. Saat menjalankan perintah Ansible atau playbook, Anda akan menyebutkan file inventory yang akan digunakan.
+
+```
+[appserver]
+103.172.205.204
+
+[gateway]
+116.193.190.5
+
+[monitoring]
+103.172.204.221
+
+[all:vars]
+ansible_user=sallfarr
+```
+
+Selanjutnya saya akan membuat file ansible-playbook.yml, ansible-playbook.yml adalah file yang digunakan untuk menulis playbook Ansible. Playbook adalah file konfigurasi utama yang mendefinisikan tugas-tugas yang harus dilakukan oleh Ansible pada target atau host tertentu. File ini berisi langkah-langkah yang akan dijalankan oleh Ansible untuk mencapai tujuan tertentu, seperti mengatur konfigurasi, menginstal perangkat lunak, atau mengelola sumber daya.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
