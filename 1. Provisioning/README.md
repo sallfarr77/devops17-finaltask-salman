@@ -146,12 +146,39 @@ Dan untuk menjankannya bisa menggunakan :
 ansible-playbook play.yml
 ```
 
-Selanjutnya setup reverse proxy sesuai dengan keinginan 
+Selanjutnya setup reverse proxy sesuai dengan keinginan, untuk contohnya kurang lebih seperti ini [reverse-proxy.conf](https://github.com/sallfarr77/devops17-finaltask-salman/blob/main/resource/reverser-proxy.conf)
 
-Jika sudah kita bisa membuat file ansible yang didalamnya menginstall nginx dan menjalankan configurasi reverse proxy seperti [Ini]()
+Jika sudah kita bisa membuat file ansible-playbook yang didalamnya menginstall nginx dan menjalankan configurasi reverse proxy yang tadi sudah kita buat :
 
+```
+- hosts: gateway
+  become: true
+  tasks:
+    - name: Installing nginx
+      apt:
+        name: nginx
+        state: latest
+        update_cache: yes
 
+    - name: Start nginx
+      service:
+        name: nginx
+        state: started
 
+    - name: Copy reverse-proxy
+      copy:
+        src: ~/ansible-server/reverse-proxy.conf
+        dest: /etc/nginx/sites-enabled
+
+    - name: Reload nginx
+      service:
+        name: nginx
+        state: reloaded
+```
+
+dan untuk hasilnya :
+
+![image](/1.%20Provisioning/img/5.png)
 
 
 
