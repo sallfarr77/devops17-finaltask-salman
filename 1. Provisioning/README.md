@@ -180,8 +180,17 @@ dan untuk hasilnya :
 
 ![image](/1.%20Provisioning/img/5.png)
 
+Membuka alamat gateway server
 
+![image](/1.%20Provisioning/img/6.png)
 
+alamat domain grafana
+
+![image](/1.%20Provisioning/img/7.png)
+
+alamat domain jenkins
+
+![image](/1.%20Provisioning/img/8.png)
 
 
 
