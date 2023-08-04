@@ -140,6 +140,16 @@ Playbook ini mempermudah proses konfigurasi dan deploy perangkat lunak tersebut 
 
 Klik disini untuk bisa melihat code secara lebih lengkap: [play.yml](https://github.com/sallfarr77/devops17-finaltask-salman/blob/main/resource/play.yml)
 
+Dan untuk menjankannya bisa menggunakan :
+
+```
+ansible-playbook play.yml
+```
+
+Selanjutnya setup reverse proxy sesuai dengan keinginan 
+
+Jika sudah kita bisa membuat file ansible yang didalamnya menginstall nginx dan menjalankan configurasi reverse proxy seperti [Ini]()
+
 
 
 
