@@ -130,6 +130,16 @@ ansible_user=sallfarr
 
 Selanjutnya saya akan membuat file ansible-playbook.yml, ansible-playbook.yml adalah file yang digunakan untuk menulis playbook Ansible. Playbook adalah file konfigurasi utama yang mendefinisikan tugas-tugas yang harus dilakukan oleh Ansible pada target atau host tertentu. File ini berisi langkah-langkah yang akan dijalankan oleh Ansible untuk mencapai tujuan tertentu, seperti mengatur konfigurasi, menginstal perangkat lunak, atau mengelola sumber daya.
 
+Saya akan membuat file ansible-playbook dengan nama play.yml, File `play.yml` merupakan sebuah playbook Ansible yang berisi serangkaian tugas untuk mengotomatisasi konfigurasi sistem, instalasi Docker, dan penyiapan Jenkins, Prometheus, dan Grafana menggunakan kontainer Docker.
+
+- Pada bagian pertama, playbook ini akan mengkonfigurasi otentikasi SSH menggunakan kunci publik, mengubah sumber repository APT, dan menonaktifkan opsi PasswordAuthentication untuk SSH login.
+- Selanjutnya, pada bagian kedua, playbook ini akan menginstal Docker dan dependensinya pada semua host yang ada.
+- Pada bagian ketiga, playbook ini akan mendeploy Jenkins, Prometheus, dan Grafana di host yang ditandai sebagai "monitoring" dengan menggunakan kontainer Docker.
+
+Playbook ini mempermudah proses konfigurasi dan deploy perangkat lunak tersebut secara konsisten pada beberapa host, sehingga memastikan kehandalan sistem dan monitoring yang efisien.
+
+Klik disini untuk bisa melihat code secara lebih lengkap: [play.yml](https://github.com/sallfarr77/devops17-finaltask-salman/blob/main/resource/play.yml)
+
 
 
 
