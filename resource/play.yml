@@ -1,0 +1,163 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Copy SSH public key to remote host
+      authorized_key:
+        user: sallfarr
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+        state: present
+
+    - name: Change repository apt
+      replace:
+        path: /etc/apt/sources.list
+        regexp: 'http://mirrors\.idcloudhost\.com/ubuntu'
+        replace: 'http://archive.ubuntu.com/ubuntu'
+
+    - name: Change PasswordAuthentication for idch
+      replace:
+        path: /etc/ssh/sshd_config.d/50-cloud-init.conf
+        regexp: 'PasswordAuthentication yes'
+        replace: 'PasswordAuthentication no'
+
+    - name: Change PasswordAuthentication
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^PasswordAuthentication'
+        line: 'PasswordAuthentication no'
+        state: present
+      notify:
+        - Restart SSH
+
+  handlers:
+    - name: Restart SSH
+      service:
+        name: sshd
+        state: restarted
+
+- hosts: all
+  become: true
+  vars:
+    user: sallfarr
+  tasks:
+    - name: Install Docker Dependencies
+      apt:
+        update_cache: yes
+        name:
+          - lsb-release
+          - ca-certificates
+          - curl
+          - gnupg
+
+    - name: Install GPG Key for Docker
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+
+    - name: Add Docker APT Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+
+    - name: Install Docker Engine
+      apt:
+        update_cache: yes
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+
+    - name: Install Docker Compose
+      apt:
+        name: docker-compose
+        state: latest
+        update_cache: yes
+
+    - name: Install Python Dependencies
+      apt:
+        name: python3-pip
+        state: latest
+        update_cache: yes
+
+    - name: Install Docker SDK for Python
+      pip:
+        name: docker
+        state: latest
+        executable: pip3
+
+    - name: Add user to the docker group
+      user:
+        name: "{{ user }}"
+        groups: docker
+        append: yes
+        state: present
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+
+    - name: Enable Docker on boot
+      service:
+        name: docker
+        enabled: yes
+
+    - name: Pull the bitnami/node-exporter Docker image
+      docker_image:
+        name: bitnami/node-exporter
+        source: pull
+
+    - name: Run the Node Exporter container
+      docker_container:
+        name: node-exp
+        image: bitnami/node-exporter
+        state: started
+        restart_policy: unless-stopped
+        published_ports:
+          - "9100:9100"
+
+- name: Deploy Jenkins Prometheus and Grafana top on Docker
+  hosts: monitoring
+  become: yes
+
+  tasks:
+    - name: Pull Jenkins Docker image
+      docker_image:
+        name: jenkins/jenkins:latest
+        source: pull
+
+    - name: Run Jenkins container
+      docker_container:
+        name: Jenkins-container
+        image: jenkins/jenkins:latest
+        state: started
+        restart_policy: unless-stopped
+        published_ports:
+          - "8080:8080"
+
+    - name: Pull Grafana Docker image
+      docker_image:
+        name: grafana/grafana
+        source: pull
+
+    - name: Run Grafana container
+      docker_container:
+        name: Grafana-container
+        image: grafana/grafana
+        state: started
+        restart_policy: unless-stopped
+        published_ports:
+          - "3000:3000"
+
+    - name: Pull Prometheus Docker image
+      docker_image:
+        name: bitnami/prometheus
+        source: pull
+
+    - name: Run Prometheus container
+      docker_container:
+        name: Prometheus-container
+        image: bitnami/prometheus
+        state: started
+        volumes:
+          - /home/sallfarr/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+        restart_policy: unless-stopped
+        published_ports:
+          - "9090:9090"
