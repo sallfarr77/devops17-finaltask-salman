@@ -1,0 +1,8 @@
+# Use the official PostgreSQL image as the base
+FROM postgres:latest
+
+# Remove unnecessary packages to make it minimal
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+       ca-certificates \
+       && rm -rf /var/lib/apt/lists/*
