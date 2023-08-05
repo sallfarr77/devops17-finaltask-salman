@@ -142,6 +142,37 @@ Dashboard profile dalam website dumbmerch
 ![image](/4.%20Deployment/img/6.png)
 
 
+# CI/CD
+
+Semua tugas di atas ternyata bisa kita jalankan secara otomatis dengan hanya satu kali klik, ini semua bisa terwujud dengan salah satu tools ci/cd yaitu jenkins, untuk contoh bagaimana caranya bisa melihat contoh pada gambar di bawah ini.
+
+Tapi pertama-tama kalian harus membuat script Jenkinsfilenya terlebih dahulu, pada contoh kali ini saya akan memasukan Jenkinsfile kedalam repository github
+
+[Jenkinsfile for frontend](/resource/Jenkinsfile-frontend)
+
+[Jenkinsfile for backend](/resource/Jenkins-backend)
+
+Setelah itu kalian harus meng-install plugin ssh terlebih dahulu didalam Jenkins, jika sudah kita bisa membuat ssh credentials yang mana berguna untuk jenkins nantinya menjalankan semua task yang sudah kita buat secara otomatis.
+
+![image](/4.%20Deployment/img/7.png)
+
+Konfigurasi frontend untuk dijalankan secara otomatis menggunakan jenkins.
+
+![image](/4.%20Deployment/img/8.png)
+
+![image](/4.%20Deployment/img/9.png)
+
+Untuk configurasi backendnya sendiri bisa disamakan dengan frontend
+
+![image](/4.%20Deployment/img/10.png)
+
+Push image kedalam docker-hub secara otomatis
+
+![image](/4.%20Deployment/img/11.png)
+
+
+
+
 
 
 
