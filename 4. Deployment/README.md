@@ -25,7 +25,7 @@ Selanjutnya membuat `Dockerfile` pada repository frontend dengan distroless imag
 
 ```
 # Set the base image to Node 16 (distroless)
-FROM node:16 as build
+FROM node:16 AS build
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -40,7 +40,7 @@ RUN npm install
 EXPOSE 3000
 
 # Start the application
-CMD ["node", "node_modules/serve/bin/serve.js", "build", "-l", "3000"]
+CMD ["yarn", "start"]
 ```
 
 Untuk membuat menjadi sebuah docker image kita bisa menggunakan :
@@ -49,7 +49,7 @@ Untuk membuat menjadi sebuah docker image kita bisa menggunakan :
 docker build -t sallfarr/fe-dumbmerch-production:latest .
 ```
 
-![image](/4.%20Deployment/media/2.png)
+![image](/4.%20Deployment/img/2.png)
 
 
 ### Backend
@@ -70,21 +70,13 @@ Script `.dockerignore` ini digunakan untuk memberi tahu Docker engine tentang fi
 Selanjunya membuat `Dockerfile` pada directory backend :
 
 ```
-# Build Stage
-FROM golang:1.18 AS build
-
-WORKDIR /go/src/app
-COPY . .
-
-RUN go mod download
-RUN CGO_ENABLED=0 go build -o /go/bin/app
-
-# Final Stage
-FROM gcr.io/distroless/static
-
-COPY --from=build /go/bin/app /
-
-CMD ["/app"]
+FROM golang:1.16
+RUN mkdir /app
+COPY . /app
+WORKDIR /app
+RUN go get -x ./ && go build && go mod download
+EXPOSE 5000
+CMD ["go", "run", "main.go"]
 ```
 
 Dan untuk membuat menjadi imagenya bisa menggunakan :
@@ -92,6 +84,8 @@ Dan untuk membuat menjadi imagenya bisa menggunakan :
 ```
 docker build -t sallfarr/be-dumbmerch-production:latest .
 ```
+
+![image](/4.%20Deployment/img/3.png)
 
 ### Final Deployment
 
@@ -101,12 +95,9 @@ Disini saya akan membuat file `docker-compose.yml` dan menambahkan satu service 
 
 ```
 version: "3.8"
-
 services:
-  db:
-    build:
-      context: .
-      dockerfile: Dockerfile.postgres  # Use the custom Distroless Dockerfile for the PostgreSQL service
+   db:
+    image: postgres:latest
     container_name: db-dumbmerch
     ports:
       - 5432:5432
@@ -116,8 +107,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
-
-  backend:
+   backend:
     depends_on:
       - db
     image: sallfarr/be-dumbmerch-production:latest
@@ -126,19 +116,57 @@ services:
     restart: unless-stopped
     ports:
       - 5000:5000
-
-  frontend:
+   frontend:
     image: sallfarr/fe-dumbmerch-production:latest
     container_name: fe-dumbmerch
     stdin_open: true
     restart: unless-stopped
     ports:
       - 3000:3000
-
-# Define a custom bridge network for the containers to communicate with each other
-networks:
-  default:
-    driver: bridge
 ```
 
-[Dockerfile.postgress](resource/Dockerfile.postgres)
+Untuk menjalankannya bisa menggunakan
+
+```
+docker-compose up -d
+```
+
+![image](/4.%20Deployment/img/4.png)
+
+Registrasi user pada website
+
+![image](/4.%20Deployment/img/5.png)
+
+Dashboard profile dalam website dumbmerch
+
+![image](/4.%20Deployment/img/6.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
